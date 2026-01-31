@@ -1100,7 +1100,10 @@
             if (parseFloat(netFoodRate) < 0) rateEl.classList.add('danger');
             else if (parseFloat(netFoodRate) < 0.1) rateEl.classList.add('warning');
 
-            if (selectedCell) updateSelectedUI();
+            // Only update idle count text, don't recreate buttons
+            if (selectedCell) {
+                document.getElementById('idleNote').textContent = `Idle workers: ${idleAnts}`;
+            }
         }
 
         let lastTime = Date.now();
