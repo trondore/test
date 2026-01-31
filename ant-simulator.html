@@ -5,12 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ant Colony Simulator</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #1a1a2e;
@@ -21,25 +16,9 @@
             align-items: center;
             padding: 20px;
         }
-
-        h1 {
-            margin-bottom: 10px;
-            color: #f39c12;
-        }
-
-        .game-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        canvas {
-            border: 3px solid #444;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
+        h1 { margin-bottom: 10px; color: #f39c12; }
+        .game-container { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        canvas { border: 3px solid #444; border-radius: 8px; cursor: pointer; }
         .panel {
             background: #16213e;
             padding: 20px;
@@ -48,465 +27,190 @@
             max-height: 700px;
             overflow-y: auto;
         }
-
-        .panel h2 {
-            color: #f39c12;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 10px;
-        }
-
-        .stat {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            padding: 6px 8px;
-            background: #1a1a2e;
-            border-radius: 4px;
-        }
-
-        .stat-label {
-            color: #aaa;
-        }
-
-        .stat-value {
-            font-weight: bold;
-            color: #4ecca3;
-        }
-
-        .stat-value.warning {
-            color: #f39c12;
-        }
-
-        .stat-value.danger {
-            color: #e74c3c;
-        }
-
-        .controls {
-            margin-top: 10px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 8px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .btn-dig {
-            background: #8B4513;
-            color: white;
-        }
-
-        .btn-farm {
-            background: #228B22;
-            color: white;
-        }
-
-        .btn-cancel {
-            background: #c0392b;
-            color: white;
-        }
-
-        .instructions {
-            margin-top: 15px;
-            padding: 10px;
-            background: #1a1a2e;
-            border-radius: 4px;
-            font-size: 12px;
-            color: #aaa;
-        }
-
-        .instructions p {
-            margin-bottom: 5px;
-        }
-
-        .selected-info {
-            margin-top: 15px;
-            padding: 12px;
-            background: #2a2a4e;
-            border-radius: 4px;
-            border: 2px solid #4ecca3;
-        }
-
-        .selected-info.dirt {
-            border-color: #8B4513;
-        }
-
-        .selected-info.tunnel {
-            border-color: #654321;
-        }
-
-        .selected-info.farm {
-            border-color: #32CD32;
-        }
-
-        .legend {
-            margin-top: 15px;
-            padding: 10px;
-            background: #1a1a2e;
-            border-radius: 4px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-            font-size: 12px;
-        }
-
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            margin-right: 8px;
-            border-radius: 3px;
-        }
-
-        .game-over {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.9);
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            display: none;
-            z-index: 100;
-        }
-
-        .game-over h2 {
-            color: #e74c3c;
-            margin-bottom: 20px;
-        }
-
-        .game-over button {
-            width: auto;
-            padding: 10px 30px;
-            background: #4ecca3;
-            color: #1a1a2e;
-            font-weight: bold;
-        }
-
-        .idle-count {
-            color: #f39c12;
-            font-size: 12px;
-            margin-top: 8px;
-        }
-
-        #selectedTitle {
-            font-size: 16px;
-            color: #fff;
-        }
-
-        #selectedDesc {
-            margin-top: 5px;
-            color: #aaa;
-            font-size: 13px;
-        }
+        .panel h2 { color: #f39c12; margin-bottom: 15px; border-bottom: 1px solid #444; padding-bottom: 10px; }
+        .stat { display: flex; justify-content: space-between; margin-bottom: 8px; padding: 6px 8px; background: #1a1a2e; border-radius: 4px; }
+        .stat-label { color: #aaa; }
+        .stat-value { font-weight: bold; color: #4ecca3; }
+        .stat-value.warning { color: #f39c12; }
+        .stat-value.danger { color: #e74c3c; }
+        button { width: 100%; padding: 10px; margin-bottom: 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+        button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .btn-dig { background: #8B4513; color: white; }
+        .btn-farm { background: #228B22; color: white; }
+        .selected-info { margin-top: 15px; padding: 12px; background: #2a2a4e; border-radius: 4px; border: 2px solid #4ecca3; }
+        .selected-info.dirt { border-color: #8B4513; }
+        .selected-info.tunnel { border-color: #D4C4A8; }
+        .selected-info.farm { border-color: #32CD32; }
+        .instructions { margin-top: 15px; padding: 10px; background: #1a1a2e; border-radius: 4px; font-size: 12px; color: #aaa; }
+        .instructions p { margin-bottom: 5px; }
+        .idle-count { color: #f39c12; font-size: 12px; margin-top: 8px; }
+        .game-over { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.9); padding: 40px; border-radius: 10px; text-align: center; display: none; z-index: 100; }
+        .game-over h2 { color: #e74c3c; margin-bottom: 20px; }
+        .game-over button { width: auto; padding: 10px 30px; background: #4ecca3; color: #1a1a2e; font-weight: bold; }
     </style>
 </head>
 <body>
     <h1>Ant Colony Simulator</h1>
-
     <div class="game-container">
         <canvas id="gameCanvas" width="960" height="640"></canvas>
-
         <div class="panel">
             <h2>Colony Status</h2>
-
-            <div class="stat">
-                <span class="stat-label">Food:</span>
-                <span class="stat-value" id="foodCount">50</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Queen:</span>
-                <span class="stat-value" id="queenStatus">Alive</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Eggs:</span>
-                <span class="stat-value" id="eggCount">0</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Workers:</span>
-                <span class="stat-value" id="workerCount">0</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Idle:</span>
-                <span class="stat-value" id="idleCount">0</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Diggers:</span>
-                <span class="stat-value" id="diggerCount">0</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Farmers:</span>
-                <span class="stat-value" id="farmerCount">0</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Farms:</span>
-                <span class="stat-value" id="farmCount">0</span>
-            </div>
-
-            <div class="stat">
-                <span class="stat-label">Food/sec:</span>
-                <span class="stat-value" id="foodRate">0</span>
-            </div>
-
+            <div class="stat"><span class="stat-label">Food:</span><span class="stat-value" id="foodCount">50</span></div>
+            <div class="stat"><span class="stat-label">Queen:</span><span class="stat-value" id="queenStatus">Alive</span></div>
+            <div class="stat"><span class="stat-label">Eggs:</span><span class="stat-value" id="eggCount">0</span></div>
+            <div class="stat"><span class="stat-label">Workers:</span><span class="stat-value" id="workerCount">0</span></div>
+            <div class="stat"><span class="stat-label">Idle:</span><span class="stat-value" id="idleCount">0</span></div>
+            <div class="stat"><span class="stat-label">Diggers:</span><span class="stat-value" id="diggerCount">0</span></div>
+            <div class="stat"><span class="stat-label">Farmers:</span><span class="stat-value" id="farmerCount">0</span></div>
+            <div class="stat"><span class="stat-label">Farms:</span><span class="stat-value" id="farmCount">0</span></div>
+            <div class="stat"><span class="stat-label">Food/sec:</span><span class="stat-value" id="foodRate">0</span></div>
             <div class="selected-info" id="selectedInfo" style="display: none;">
                 <strong id="selectedTitle">Selected:</strong>
                 <p id="selectedDesc"></p>
-                <div class="controls" id="actionButtons"></div>
+                <div id="actionButtons"></div>
                 <p class="idle-count" id="idleNote"></p>
             </div>
-
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(#87CEEB, #5DADE2);"></div>
-                    <span>Sky</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(#2ECC71, #1E8449);"></div>
-                    <span>Grass</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(#A0522D, #6B3510);"></div>
-                    <span>Dirt</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #4A3728;"></div>
-                    <span>Tunnel</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: linear-gradient(#32CD32, #228B22);"></div>
-                    <span>Farm</span>
-                </div>
-            </div>
-
             <div class="instructions">
                 <p><strong>How to Play:</strong></p>
                 <p>Click DIRT next to tunnels to dig</p>
                 <p>Click TUNNEL to build a farm</p>
-                <p>Click FARM to assign more farmers</p>
-                <p>Farms: +5 food/20sec</p>
-                <p>Ants: -1 food/20sec each</p>
+                <p>Click FARM to assign farmers</p>
             </div>
         </div>
     </div>
-
     <div class="game-over" id="gameOver">
         <h2>Colony Collapsed!</h2>
-        <p>Your colony ran out of food and perished.</p>
-        <br>
+        <p>Your colony ran out of food.</p><br>
         <button onclick="location.reload()">Try Again</button>
     </div>
 
     <script>
-        // Game Constants - Higher resolution graphics
         const CELL_SIZE = 16;
         const GRID_WIDTH = 60;
         const GRID_HEIGHT = 40;
         const SURFACE_Y = 5;
+        const ANT_SPEED = 0.03;
 
         const EGG_HATCH_TIME = 5000;
         const QUEEN_LAY_INTERVAL = 5000;
         const FOOD_CONSUME_INTERVAL = 20000;
         const FARM_PRODUCE_INTERVAL = 20000;
         const FARM_FOOD_AMOUNT = 5;
-        const DIG_TIME = 1500;
+        const DIG_TIME = 2500;
         const FARM_BUILD_TIME = 2500;
 
-        // Cell Types
-        const CELL_SKY = 0;
-        const CELL_GRASS = 1;
-        const CELL_DIRT = 2;
-        const CELL_TUNNEL = 3;
-        const CELL_FARM = 4;
+        const CELL_SKY = 0, CELL_GRASS = 1, CELL_DIRT = 2, CELL_TUNNEL = 3, CELL_FARM = 4;
+        const TASK_IDLE = 'idle', TASK_DIG = 'dig', TASK_FARM = 'farm';
 
-        // Ant Tasks
-        const TASK_IDLE = 'idle';
-        const TASK_DIG = 'dig';
-        const TASK_FARM = 'farm';
+        let canvas, ctx, grid = [], ants = [], eggs = [], farms = [];
+        let queen = null, food = 50, gameRunning = true;
+        let lastFoodConsume = Date.now(), lastQueenLay = Date.now();
+        let selectedCell = null, highlightedCell = null;
+        let digQueue = [], farmQueue = [];
 
-        // Game State
-        let canvas, ctx;
-        let grid = [];
-        let ants = [];
-        let eggs = [];
-        let farms = [];
-        let queen = null;
-        let food = 50;
-        let gameRunning = true;
-        let lastFoodConsume = Date.now();
-        let lastQueenLay = Date.now();
-
-        // Selection state
-        let selectedCell = null;
-        let highlightedCell = null;
-
-        // Task queues
-        let digQueue = [];
-        let farmQueue = [];
-
-        // Dirt texture cache
-        let dirtPattern = null;
-        let tunnelPattern = null;
-
-        // Initialize Grid
         function initGrid() {
             grid = [];
             for (let y = 0; y < GRID_HEIGHT; y++) {
                 grid[y] = [];
                 for (let x = 0; x < GRID_WIDTH; x++) {
-                    if (y < SURFACE_Y) {
-                        grid[y][x] = CELL_SKY;
-                    } else if (y === SURFACE_Y) {
-                        grid[y][x] = CELL_GRASS;
-                    } else {
-                        grid[y][x] = CELL_DIRT;
-                    }
+                    if (y < SURFACE_Y) grid[y][x] = CELL_SKY;
+                    else if (y === SURFACE_Y) grid[y][x] = CELL_GRASS;
+                    else grid[y][x] = CELL_DIRT;
                 }
             }
-
-            // Create initial tunnel
             const entranceX = Math.floor(GRID_WIDTH / 2);
-
-            // Vertical shaft
             for (let y = SURFACE_Y; y <= SURFACE_Y + 10; y++) {
-                for (let dx = -1; dx <= 1; dx++) {
-                    grid[y][entranceX + dx] = CELL_TUNNEL;
-                }
+                for (let dx = -1; dx <= 1; dx++) grid[y][entranceX + dx] = CELL_TUNNEL;
             }
-
-            // Queen chamber
             for (let x = entranceX - 4; x <= entranceX + 4; x++) {
-                for (let y = SURFACE_Y + 8; y <= SURFACE_Y + 12; y++) {
-                    grid[y][x] = CELL_TUNNEL;
-                }
+                for (let y = SURFACE_Y + 8; y <= SURFACE_Y + 12; y++) grid[y][x] = CELL_TUNNEL;
             }
         }
 
-        // Create texture patterns
-        function createPatterns() {
-            // Dirt texture
-            const dirtCanvas = document.createElement('canvas');
-            dirtCanvas.width = 32;
-            dirtCanvas.height = 32;
-            const dirtCtx = dirtCanvas.getContext('2d');
-
-            // Base color
-            dirtCtx.fillStyle = '#8B4513';
-            dirtCtx.fillRect(0, 0, 32, 32);
-
-            // Add noise/texture
-            for (let i = 0; i < 50; i++) {
-                const x = Math.random() * 32;
-                const y = Math.random() * 32;
-                const size = Math.random() * 3 + 1;
-                const brightness = Math.random() * 40 - 20;
-                dirtCtx.fillStyle = `rgb(${139 + brightness}, ${69 + brightness/2}, ${19 + brightness/3})`;
-                dirtCtx.beginPath();
-                dirtCtx.arc(x, y, size, 0, Math.PI * 2);
-                dirtCtx.fill();
-            }
-
-            // Add small rocks
-            for (let i = 0; i < 5; i++) {
-                const x = Math.random() * 28 + 2;
-                const y = Math.random() * 28 + 2;
-                dirtCtx.fillStyle = '#666';
-                dirtCtx.beginPath();
-                dirtCtx.ellipse(x, y, 2, 1.5, Math.random() * Math.PI, 0, Math.PI * 2);
-                dirtCtx.fill();
-            }
-
-            dirtPattern = ctx.createPattern(dirtCanvas, 'repeat');
-
-            // Tunnel texture
-            const tunnelCanvas = document.createElement('canvas');
-            tunnelCanvas.width = 32;
-            tunnelCanvas.height = 32;
-            const tunnelCtx = tunnelCanvas.getContext('2d');
-
-            tunnelCtx.fillStyle = '#3D2817';
-            tunnelCtx.fillRect(0, 0, 32, 32);
-
-            for (let i = 0; i < 30; i++) {
-                const x = Math.random() * 32;
-                const y = Math.random() * 32;
-                const brightness = Math.random() * 20 - 10;
-                tunnelCtx.fillStyle = `rgb(${61 + brightness}, ${40 + brightness}, ${23 + brightness})`;
-                tunnelCtx.beginPath();
-                tunnelCtx.arc(x, y, Math.random() * 2 + 1, 0, Math.PI * 2);
-                tunnelCtx.fill();
-            }
-
-            tunnelPattern = ctx.createPattern(tunnelCanvas, 'repeat');
-        }
-
-        // Draw a detailed ant
-        function drawAnt(x, y, isQueen, task, workProgress) {
-            const cx = x * CELL_SIZE + CELL_SIZE / 2;
-            const cy = y * CELL_SIZE + CELL_SIZE / 2;
-            const scale = isQueen ? 1.4 : 1;
-
+        // Draw queen with amber stripes like reference photo
+        function drawQueen(px, py) {
             ctx.save();
-            ctx.translate(cx, cy);
-            ctx.scale(scale, scale);
+            ctx.translate(px, py);
 
-            const bodyColor = isQueen ? '#DAA520' : '#4A1A0A';
-            const highlightColor = isQueen ? '#FFD700' : '#6B2A1A';
+            // Legs
+            ctx.strokeStyle = '#2C1810';
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i < 3; i++) {
+                const legY = -4 + i * 4;
+                ctx.beginPath(); ctx.moveTo(-4, legY); ctx.lineTo(-12, legY - 4 + i * 2); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(4, legY); ctx.lineTo(12, legY - 4 + i * 2); ctx.stroke();
+            }
+
+            // Large abdomen with stripes (like reference)
+            ctx.fillStyle = '#1C1008';
+            ctx.beginPath();
+            ctx.ellipse(-12, 0, 14, 10, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Amber/orange stripes on abdomen
+            ctx.fillStyle = '#D4882C';
+            ctx.beginPath(); ctx.ellipse(-18, 0, 3, 8, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#C07820';
+            ctx.beginPath(); ctx.ellipse(-12, 0, 2.5, 9, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#D4882C';
+            ctx.beginPath(); ctx.ellipse(-6, 0, 2, 7, 0, 0, Math.PI * 2); ctx.fill();
+
+            // Thorax (dark)
+            ctx.fillStyle = '#1C1008';
+            ctx.beginPath();
+            ctx.ellipse(4, 0, 6, 5, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Head (dark)
+            ctx.beginPath();
+            ctx.ellipse(12, 0, 5, 4, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Mandibles
+            ctx.strokeStyle = '#2C1810';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(16, -2); ctx.lineTo(20, -4); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(16, 2); ctx.lineTo(20, 4); ctx.stroke();
+
+            // Antennae
+            ctx.strokeStyle = '#2C1810';
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(14, -3); ctx.quadraticCurveTo(18, -8, 22, -10); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(14, 3); ctx.quadraticCurveTo(18, 8, 22, 10); ctx.stroke();
+
+            // Eyes
+            ctx.fillStyle = '#000';
+            ctx.beginPath();
+            ctx.arc(14, -2, 1.5, 0, Math.PI * 2);
+            ctx.arc(14, 2, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        // Draw worker ant
+        function drawWorkerAnt(px, py, task, workProgress) {
+            ctx.save();
+            ctx.translate(px, py);
+
+            const bodyColor = '#3D1A0A';
 
             // Legs
             ctx.strokeStyle = bodyColor;
             ctx.lineWidth = 1;
             for (let i = 0; i < 3; i++) {
                 const legY = -2 + i * 2;
-                // Left legs
-                ctx.beginPath();
-                ctx.moveTo(-2, legY);
-                ctx.lineTo(-6, legY - 2 + i);
-                ctx.stroke();
-                // Right legs
-                ctx.beginPath();
-                ctx.moveTo(2, legY);
-                ctx.lineTo(6, legY - 2 + i);
-                ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(-2, legY); ctx.lineTo(-6, legY - 2 + i); ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(2, legY); ctx.lineTo(6, legY - 2 + i); ctx.stroke();
             }
 
-            // Abdomen (back)
+            // Abdomen
             ctx.fillStyle = bodyColor;
             ctx.beginPath();
             ctx.ellipse(-4, 0, 4, 3, 0, 0, Math.PI * 2);
             ctx.fill();
-            ctx.fillStyle = highlightColor;
-            ctx.beginPath();
-            ctx.ellipse(-4, -1, 2, 1.5, 0, 0, Math.PI * 2);
-            ctx.fill();
 
-            // Thorax (middle)
-            ctx.fillStyle = bodyColor;
+            // Thorax
             ctx.beginPath();
             ctx.ellipse(1, 0, 3, 2.5, 0, 0, Math.PI * 2);
             ctx.fill();
@@ -519,160 +223,83 @@
             // Antennae
             ctx.strokeStyle = bodyColor;
             ctx.lineWidth = 0.8;
-            ctx.beginPath();
-            ctx.moveTo(6, -1);
-            ctx.quadraticCurveTo(8, -3, 9, -4);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.moveTo(6, 1);
-            ctx.quadraticCurveTo(8, 3, 9, 4);
-            ctx.stroke();
-
-            // Eyes
-            ctx.fillStyle = '#000';
-            ctx.beginPath();
-            ctx.arc(6, -1, 0.8, 0, Math.PI * 2);
-            ctx.arc(6, 1, 0.8, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Crown for queen
-            if (isQueen) {
-                ctx.fillStyle = '#FF4444';
-                ctx.beginPath();
-                ctx.moveTo(-2, -6);
-                ctx.lineTo(0, -10);
-                ctx.lineTo(2, -6);
-                ctx.lineTo(0, -7);
-                ctx.closePath();
-                ctx.fill();
-
-                ctx.fillStyle = '#FFD700';
-                ctx.beginPath();
-                ctx.arc(0, -10, 1.5, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            ctx.beginPath(); ctx.moveTo(6, -1); ctx.quadraticCurveTo(8, -3, 9, -4); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(6, 1); ctx.quadraticCurveTo(8, 3, 9, 4); ctx.stroke();
 
             ctx.restore();
 
             // Work progress bar
             if (workProgress > 0) {
-                const barWidth = CELL_SIZE + 6;
-                const barHeight = 3;
-                const progress = task === TASK_DIG
-                    ? workProgress / DIG_TIME
-                    : workProgress / FARM_BUILD_TIME;
-
+                const barWidth = 16;
+                const progress = task === TASK_DIG ? workProgress / DIG_TIME : workProgress / FARM_BUILD_TIME;
                 ctx.fillStyle = '#222';
-                ctx.fillRect(cx - barWidth/2, cy - CELL_SIZE/2 - 6, barWidth, barHeight);
+                ctx.fillRect(px - barWidth/2, py - 12, barWidth, 3);
                 ctx.fillStyle = task === TASK_DIG ? '#F39C12' : '#27AE60';
-                ctx.fillRect(cx - barWidth/2, cy - CELL_SIZE/2 - 6, barWidth * progress, barHeight);
-                ctx.strokeStyle = '#000';
-                ctx.lineWidth = 1;
-                ctx.strokeRect(cx - barWidth/2, cy - CELL_SIZE/2 - 6, barWidth, barHeight);
+                ctx.fillRect(px - barWidth/2, py - 12, barWidth * progress, 3);
             }
         }
 
-        // Draw an egg
-        function drawEgg(x, y, progress) {
-            const cx = x * CELL_SIZE + CELL_SIZE / 2;
-            const cy = y * CELL_SIZE + CELL_SIZE / 2;
-
-            // Egg shape
+        function drawEgg(px, py, progress) {
             ctx.fillStyle = '#FFF8DC';
             ctx.beginPath();
-            ctx.ellipse(cx, cy, CELL_SIZE/3, CELL_SIZE/2.5, 0, 0, Math.PI * 2);
+            ctx.ellipse(px, py, 4, 5, 0, 0, Math.PI * 2);
             ctx.fill();
-
-            // Egg shine
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-            ctx.beginPath();
-            ctx.ellipse(cx - 2, cy - 2, 2, 3, -0.3, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Outline
             ctx.strokeStyle = '#DAA520';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.ellipse(cx, cy, CELL_SIZE/3, CELL_SIZE/2.5, 0, 0, Math.PI * 2);
+            ctx.lineWidth = 1;
             ctx.stroke();
 
             // Hatch progress
-            if (progress < 1) {
-                const barWidth = CELL_SIZE;
-                ctx.fillStyle = '#333';
-                ctx.fillRect(cx - barWidth/2, cy + CELL_SIZE/2 + 2, barWidth, 3);
-                ctx.fillStyle = '#E74C3C';
-                ctx.fillRect(cx - barWidth/2, cy + CELL_SIZE/2 + 2, barWidth * progress, 3);
-            }
+            const barWidth = 12;
+            ctx.fillStyle = '#333';
+            ctx.fillRect(px - barWidth/2, py + 8, barWidth, 2);
+            ctx.fillStyle = '#E74C3C';
+            ctx.fillRect(px - barWidth/2, py + 8, barWidth * progress, 2);
         }
 
-        // Draw a farm
         function drawFarm(x, y) {
-            const sx = x * CELL_SIZE;
-            const sy = y * CELL_SIZE;
-
-            // Soil base
+            const sx = x * CELL_SIZE, sy = y * CELL_SIZE;
             ctx.fillStyle = '#5D4037';
             ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
-
-            // Tilled rows
             ctx.fillStyle = '#4E342E';
-            for (let i = 0; i < 4; i++) {
-                ctx.fillRect(sx + 1, sy + 2 + i * 4, CELL_SIZE - 2, 2);
-            }
+            for (let i = 0; i < 4; i++) ctx.fillRect(sx + 1, sy + 2 + i * 4, CELL_SIZE - 2, 2);
 
             // Plants
-            const plants = [
-                {x: 4, y: 4},
-                {x: 12, y: 4},
-                {x: 8, y: 8},
-                {x: 4, y: 12},
-                {x: 12, y: 12}
-            ];
-
-            for (const plant of plants) {
-                // Stem
+            [[4,4],[12,4],[8,8],[4,12],[12,12]].forEach(([px,py]) => {
                 ctx.strokeStyle = '#2E7D32';
                 ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                ctx.moveTo(sx + plant.x, sy + plant.y + 3);
-                ctx.lineTo(sx + plant.x, sy + plant.y - 1);
-                ctx.stroke();
-
-                // Leaves
+                ctx.beginPath(); ctx.moveTo(sx+px, sy+py+3); ctx.lineTo(sx+px, sy+py-1); ctx.stroke();
                 ctx.fillStyle = '#4CAF50';
-                ctx.beginPath();
-                ctx.ellipse(sx + plant.x - 2, sy + plant.y, 2, 1, -0.5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.ellipse(sx + plant.x + 2, sy + plant.y, 2, 1, 0.5, 0, Math.PI * 2);
-                ctx.fill();
-
-                // Top leaf
-                ctx.fillStyle = '#66BB6A';
-                ctx.beginPath();
-                ctx.ellipse(sx + plant.x, sy + plant.y - 2, 1.5, 2, 0, 0, Math.PI * 2);
-                ctx.fill();
-            }
+                ctx.beginPath(); ctx.ellipse(sx+px-2, sy+py, 2, 1, -0.5, 0, Math.PI*2); ctx.fill();
+                ctx.beginPath(); ctx.ellipse(sx+px+2, sy+py, 2, 1, 0.5, 0, Math.PI*2); ctx.fill();
+            });
         }
 
-        // Entity Classes
         class Ant {
             constructor(x, y, isQueen = false) {
-                this.x = x;
-                this.y = y;
+                // Store pixel positions
+                this.px = x * CELL_SIZE + CELL_SIZE / 2;
+                this.py = y * CELL_SIZE + CELL_SIZE / 2;
                 this.isQueen = isQueen;
                 this.task = TASK_IDLE;
                 this.targetX = null;
                 this.targetY = null;
                 this.workProgress = 0;
-                this.moveTimer = 0;
+                this.angle = Math.random() * Math.PI * 2;
+            }
+
+            getGridX() { return Math.floor(this.px / CELL_SIZE); }
+            getGridY() { return Math.floor(this.py / CELL_SIZE); }
+
+            canMoveToPixel(px, py) {
+                const gx = Math.floor(px / CELL_SIZE);
+                const gy = Math.floor(py / CELL_SIZE);
+                if (gx < 0 || gx >= GRID_WIDTH || gy < 0 || gy >= GRID_HEIGHT) return false;
+                const cell = grid[gy][gx];
+                return cell === CELL_TUNNEL || cell === CELL_FARM || cell === CELL_GRASS;
             }
 
             update(deltaTime) {
                 if (this.isQueen) return;
-
-                this.moveTimer += deltaTime;
 
                 if (this.task === TASK_DIG) {
                     this.performDigging(deltaTime);
@@ -701,12 +328,39 @@
                 }
             }
 
+            getDistanceToTarget() {
+                if (this.targetX === null) return Infinity;
+                const tx = this.targetX * CELL_SIZE + CELL_SIZE / 2;
+                const ty = this.targetY * CELL_SIZE + CELL_SIZE / 2;
+                return Math.sqrt((this.px - tx) ** 2 + (this.py - ty) ** 2);
+            }
+
+            moveTowardsTarget(deltaTime) {
+                const tx = this.targetX * CELL_SIZE + CELL_SIZE / 2;
+                const ty = this.targetY * CELL_SIZE + CELL_SIZE / 2;
+                const dx = tx - this.px;
+                const dy = ty - this.py;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < CELL_SIZE) return true; // Close enough
+
+                const speed = ANT_SPEED * deltaTime;
+                const nx = this.px + (dx / dist) * speed;
+                const ny = this.py + (dy / dist) * speed;
+
+                if (this.canMoveToPixel(nx, ny)) {
+                    this.px = nx;
+                    this.py = ny;
+                    this.angle = Math.atan2(dy, dx);
+                }
+                return false;
+            }
+
             performDigging(deltaTime) {
                 if (this.targetX === null || this.targetY === null) {
                     this.task = TASK_IDLE;
                     return;
                 }
-
                 if (grid[this.targetY][this.targetX] !== CELL_DIRT) {
                     this.task = TASK_IDLE;
                     this.targetX = null;
@@ -715,13 +369,7 @@
                     return;
                 }
 
-                // Check if adjacent to target
-                const dx = this.targetX - this.x;
-                const dy = this.targetY - this.y;
-                const isAdjacent = Math.abs(dx) <= 1 && Math.abs(dy) <= 1;
-
-                if (isAdjacent) {
-                    // Work on digging every frame
+                if (this.getDistanceToTarget() < CELL_SIZE * 1.5) {
                     this.workProgress += deltaTime;
                     if (this.workProgress >= DIG_TIME) {
                         grid[this.targetY][this.targetX] = CELL_TUNNEL;
@@ -731,8 +379,7 @@
                         this.task = TASK_IDLE;
                     }
                 } else {
-                    // Move towards target
-                    this.moveTowards(this.targetX, this.targetY, deltaTime);
+                    this.moveTowardsTarget(deltaTime);
                 }
             }
 
@@ -741,7 +388,6 @@
                     this.task = TASK_IDLE;
                     return;
                 }
-
                 const cell = grid[this.targetY][this.targetX];
                 if (cell !== CELL_TUNNEL && cell !== CELL_FARM) {
                     this.task = TASK_IDLE;
@@ -751,125 +397,58 @@
                     return;
                 }
 
-                // Check if adjacent to target
-                const dx = this.targetX - this.x;
-                const dy = this.targetY - this.y;
-                const isAdjacent = Math.abs(dx) <= 1 && Math.abs(dy) <= 1;
-
                 if (cell === CELL_FARM) {
-                    // Tend existing farm - just stay near it
-                    if (!isAdjacent) {
-                        this.moveTowards(this.targetX, this.targetY, deltaTime);
+                    if (this.getDistanceToTarget() > CELL_SIZE) {
+                        this.moveTowardsTarget(deltaTime);
                     }
                     return;
                 }
 
-                // Building a new farm
-                if (isAdjacent) {
-                    // Work on building every frame
+                if (this.getDistanceToTarget() < CELL_SIZE * 1.5) {
                     this.workProgress += deltaTime;
                     if (this.workProgress >= FARM_BUILD_TIME) {
                         grid[this.targetY][this.targetX] = CELL_FARM;
                         farms.push(new Farm(this.targetX, this.targetY));
                         this.workProgress = 0;
-                        // Stay as farmer to tend the farm
                     }
                 } else {
-                    // Move towards target
-                    this.moveTowards(this.targetX, this.targetY, deltaTime);
+                    this.moveTowardsTarget(deltaTime);
                 }
-            }
-
-            moveTowards(targetX, targetY, deltaTime) {
-                if (this.moveTimer < 100) return false;
-                this.moveTimer = 0;
-
-                const dx = targetX - this.x;
-                const dy = targetY - this.y;
-
-                if (Math.abs(dx) <= 1 && Math.abs(dy) <= 1) {
-                    return true;
-                }
-
-                const moves = [];
-                if (dx > 0) moves.push({x: this.x + 1, y: this.y, score: Math.abs(dx - 1) + Math.abs(dy)});
-                if (dx < 0) moves.push({x: this.x - 1, y: this.y, score: Math.abs(dx + 1) + Math.abs(dy)});
-                if (dy > 0) moves.push({x: this.x, y: this.y + 1, score: Math.abs(dx) + Math.abs(dy - 1)});
-                if (dy < 0) moves.push({x: this.x, y: this.y - 1, score: Math.abs(dx) + Math.abs(dy + 1)});
-
-                moves.sort((a, b) => a.score - b.score);
-
-                for (const move of moves) {
-                    if (canMoveTo(move.x, move.y)) {
-                        this.x = move.x;
-                        this.y = move.y;
-                        return false;
-                    }
-                }
-
-                const allMoves = [
-                    {x: this.x + 1, y: this.y},
-                    {x: this.x - 1, y: this.y},
-                    {x: this.x, y: this.y + 1},
-                    {x: this.x, y: this.y - 1}
-                ];
-
-                for (const move of allMoves) {
-                    if (canMoveTo(move.x, move.y)) {
-                        this.x = move.x;
-                        this.y = move.y;
-                        return false;
-                    }
-                }
-
-                return false;
             }
 
             wander(deltaTime) {
-                if (this.moveTimer < 200) return;
-                this.moveTimer = 0;
+                // Random wandering with smooth movement
+                this.angle += (Math.random() - 0.5) * 0.1;
+                const speed = ANT_SPEED * deltaTime * 0.5;
+                const nx = this.px + Math.cos(this.angle) * speed;
+                const ny = this.py + Math.sin(this.angle) * speed;
 
-                const directions = [
-                    {dx: 0, dy: -1},
-                    {dx: 0, dy: 1},
-                    {dx: -1, dy: 0},
-                    {dx: 1, dy: 0}
-                ];
-
-                const validMoves = directions.filter(d =>
-                    canMoveTo(this.x + d.dx, this.y + d.dy)
-                );
-
-                if (validMoves.length > 0) {
-                    const move = validMoves[Math.floor(Math.random() * validMoves.length)];
-                    this.x += move.dx;
-                    this.y += move.dy;
+                if (this.canMoveToPixel(nx, ny)) {
+                    this.px = nx;
+                    this.py = ny;
+                } else {
+                    this.angle += Math.PI / 2 + Math.random();
                 }
             }
 
             draw() {
-                drawAnt(this.x, this.y, this.isQueen, this.task, this.workProgress);
+                if (this.isQueen) {
+                    drawQueen(this.px, this.py);
+                } else {
+                    drawWorkerAnt(this.px, this.py, this.task, this.workProgress);
+                }
             }
         }
 
         class Egg {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
+            constructor(px, py) {
+                this.px = px;
+                this.py = py;
                 this.createdAt = Date.now();
             }
-
-            isReady() {
-                return Date.now() - this.createdAt >= EGG_HATCH_TIME;
-            }
-
-            getProgress() {
-                return (Date.now() - this.createdAt) / EGG_HATCH_TIME;
-            }
-
-            draw() {
-                drawEgg(this.x, this.y, this.getProgress());
-            }
+            isReady() { return Date.now() - this.createdAt >= EGG_HATCH_TIME; }
+            getProgress() { return (Date.now() - this.createdAt) / EGG_HATCH_TIME; }
+            draw() { drawEgg(this.px, this.py, this.getProgress()); }
         }
 
         class Farm {
@@ -878,7 +457,6 @@
                 this.y = y;
                 this.lastProduce = Date.now();
             }
-
             update() {
                 if (Date.now() - this.lastProduce >= FARM_PRODUCE_INTERVAL) {
                     food += FARM_FOOD_AMOUNT;
@@ -887,38 +465,21 @@
             }
         }
 
-        // Helper Functions
         function hasAdjacentTunnel(x, y) {
-            const checks = [{dx: 0, dy: -1}, {dx: 0, dy: 1}, {dx: -1, dy: 0}, {dx: 1, dy: 0}];
-            return checks.some(c => {
-                const nx = x + c.dx;
-                const ny = y + c.dy;
+            return [{dx:0,dy:-1},{dx:0,dy:1},{dx:-1,dy:0},{dx:1,dy:0}].some(c => {
+                const nx = x + c.dx, ny = y + c.dy;
                 return ny >= 0 && ny < GRID_HEIGHT && nx >= 0 && nx < GRID_WIDTH &&
                        (grid[ny][nx] === CELL_TUNNEL || grid[ny][nx] === CELL_FARM);
             });
         }
 
-        function canMoveTo(x, y) {
-            if (x < 0 || x >= GRID_WIDTH || y < 0 || y >= GRID_HEIGHT) return false;
-            const cell = grid[y][x];
-            return cell === CELL_TUNNEL || cell === CELL_FARM || cell === CELL_GRASS;
-        }
+        function getIdleAnts() { return ants.filter(a => a.task === TASK_IDLE); }
+        function getFarmersAtFarm(x, y) { return ants.filter(a => a.task === TASK_FARM && a.targetX === x && a.targetY === y); }
 
-        function getIdleAnts() {
-            return ants.filter(a => a.task === TASK_IDLE);
-        }
-
-        function getFarmersAtFarm(x, y) {
-            return ants.filter(a => a.task === TASK_FARM && a.targetX === x && a.targetY === y);
-        }
-
-        // Initialize Game
         function init() {
             canvas = document.getElementById('gameCanvas');
             ctx = canvas.getContext('2d');
-
             initGrid();
-            createPatterns();
 
             const queenX = Math.floor(GRID_WIDTH / 2);
             const queenY = SURFACE_Y + 10;
@@ -926,7 +487,6 @@
 
             canvas.addEventListener('click', handleClick);
             canvas.addEventListener('mousemove', handleMouseMove);
-
             requestAnimationFrame(gameLoop);
         }
 
@@ -936,7 +496,6 @@
             const scaleY = canvas.height / rect.height;
             const mouseX = Math.floor((event.clientX - rect.left) * scaleX / CELL_SIZE);
             const mouseY = Math.floor((event.clientY - rect.top) * scaleY / CELL_SIZE);
-
             if (mouseX >= 0 && mouseX < GRID_WIDTH && mouseY >= 0 && mouseY < GRID_HEIGHT) {
                 highlightedCell = {x: mouseX, y: mouseY};
             } else {
@@ -950,13 +509,8 @@
             const scaleY = canvas.height / rect.height;
             const clickX = Math.floor((event.clientX - rect.left) * scaleX / CELL_SIZE);
             const clickY = Math.floor((event.clientY - rect.top) * scaleY / CELL_SIZE);
-
-            if (clickX < 0 || clickX >= GRID_WIDTH || clickY < 0 || clickY >= GRID_HEIGHT) {
-                return;
-            }
-
-            const cell = grid[clickY][clickX];
-            selectedCell = {x: clickX, y: clickY, type: cell};
+            if (clickX < 0 || clickX >= GRID_WIDTH || clickY < 0 || clickY >= GRID_HEIGHT) return;
+            selectedCell = {x: clickX, y: clickY, type: grid[clickY][clickX]};
             updateSelectedUI();
         }
 
@@ -969,9 +523,7 @@
                 ant.targetY = y;
                 ant.workProgress = 0;
             } else {
-                if (!digQueue.some(d => d.x === x && d.y === y)) {
-                    digQueue.push({x, y});
-                }
+                if (!digQueue.some(d => d.x === x && d.y === y)) digQueue.push({x, y});
             }
             selectedCell = null;
             updateSelectedUI();
@@ -986,9 +538,7 @@
                 ant.targetY = y;
                 ant.workProgress = 0;
             } else {
-                if (!farmQueue.some(f => f.x === x && f.y === y)) {
-                    farmQueue.push({x, y});
-                }
+                if (!farmQueue.some(f => f.x === x && f.y === y)) farmQueue.push({x, y});
             }
             selectedCell = null;
             updateSelectedUI();
@@ -1001,124 +551,93 @@
             const buttons = document.getElementById('actionButtons');
             const idleNote = document.getElementById('idleNote');
 
-            if (!selectedCell) {
-                info.style.display = 'none';
-                return;
-            }
+            if (!selectedCell) { info.style.display = 'none'; return; }
 
             info.style.display = 'block';
             info.className = 'selected-info';
             buttons.innerHTML = '';
-
             const idleCount = getIdleAnts().length;
             idleNote.textContent = `Idle workers: ${idleCount}`;
-
-            const cell = selectedCell.type;
-            const x = selectedCell.x;
-            const y = selectedCell.y;
+            const {x, y, type: cell} = selectedCell;
 
             if (cell === CELL_DIRT && hasAdjacentTunnel(x, y)) {
                 info.classList.add('dirt');
                 title.textContent = 'Diggable Dirt';
-                desc.textContent = 'Adjacent to tunnel - can be excavated.';
-
+                desc.textContent = 'Click to assign a digger.';
                 const btn = document.createElement('button');
                 btn.className = 'btn-dig';
                 btn.textContent = idleCount > 0 ? 'Assign Digger' : 'Queue Dig Task';
                 btn.onclick = () => assignDigger(x, y);
                 buttons.appendChild(btn);
-
             } else if (cell === CELL_DIRT) {
                 info.classList.add('dirt');
                 title.textContent = 'Solid Dirt';
-                desc.textContent = 'Not adjacent to any tunnel. Dig nearby first.';
-
+                desc.textContent = 'Not adjacent to tunnel.';
             } else if (cell === CELL_TUNNEL) {
-                if (queen && queen.x === x && queen.y === y) {
+                const qgx = queen.getGridX(), qgy = queen.getGridY();
+                if (qgx === x && qgy === y) {
                     title.textContent = "Queen's Chamber";
-                    desc.textContent = 'The queen resides here. Cannot build farm.';
+                    desc.textContent = 'Cannot build here.';
                 } else {
                     info.classList.add('tunnel');
-                    title.textContent = 'Empty Tunnel';
-                    desc.textContent = 'You can build a farm here.';
-
+                    title.textContent = 'Tunnel';
+                    desc.textContent = 'Build a farm here.';
                     const btn = document.createElement('button');
                     btn.className = 'btn-farm';
-                    btn.textContent = idleCount > 0 ? 'Build Farm Here' : 'Queue Farm Task';
+                    btn.textContent = idleCount > 0 ? 'Build Farm' : 'Queue Farm';
                     btn.onclick = () => assignFarmer(x, y);
                     buttons.appendChild(btn);
                 }
-
             } else if (cell === CELL_FARM) {
                 info.classList.add('farm');
-                const farmersHere = getFarmersAtFarm(x, y).length;
                 title.textContent = 'Farm';
-                desc.textContent = `Produces 5 food/20sec. Farmers assigned: ${farmersHere}`;
-
+                desc.textContent = `Farmers: ${getFarmersAtFarm(x, y).length}`;
                 const btn = document.createElement('button');
                 btn.className = 'btn-farm';
                 btn.textContent = idleCount > 0 ? 'Assign Farmer' : 'Queue Farmer';
                 btn.onclick = () => assignFarmer(x, y);
                 buttons.appendChild(btn);
-
-            } else if (cell === CELL_GRASS) {
-                title.textContent = 'Surface';
-                desc.textContent = 'The ground surface above your colony.';
-
-            } else if (cell === CELL_SKY) {
-                title.textContent = 'Sky';
-                desc.textContent = 'Open air above the colony.';
+            } else {
+                title.textContent = cell === CELL_GRASS ? 'Surface' : 'Sky';
+                desc.textContent = '';
             }
         }
 
         function updateStats() {
-            const idleAnts = ants.filter(a => a.task === TASK_IDLE).length;
+            const idle = ants.filter(a => a.task === TASK_IDLE).length;
             const diggers = ants.filter(a => a.task === TASK_DIG).length;
             const farmers = ants.filter(a => a.task === TASK_FARM).length;
-            const totalAnts = ants.length + 1;
-
-            const foodProduced = farms.length * FARM_FOOD_AMOUNT / (FARM_PRODUCE_INTERVAL / 1000);
-            const foodConsumed = totalAnts / (FOOD_CONSUME_INTERVAL / 1000);
-            const netFoodRate = (foodProduced - foodConsumed).toFixed(2);
+            const total = ants.length + 1;
+            const produced = farms.length * FARM_FOOD_AMOUNT / (FARM_PRODUCE_INTERVAL / 1000);
+            const consumed = total / (FOOD_CONSUME_INTERVAL / 1000);
+            const rate = (produced - consumed).toFixed(2);
 
             document.getElementById('foodCount').textContent = Math.floor(food);
             document.getElementById('eggCount').textContent = eggs.length;
             document.getElementById('workerCount').textContent = ants.length;
-            document.getElementById('idleCount').textContent = idleAnts;
+            document.getElementById('idleCount').textContent = idle;
             document.getElementById('diggerCount').textContent = diggers;
             document.getElementById('farmerCount').textContent = farmers;
             document.getElementById('farmCount').textContent = farms.length;
-            document.getElementById('foodRate').textContent = netFoodRate;
+            document.getElementById('foodRate').textContent = rate;
 
             const foodEl = document.getElementById('foodCount');
-            foodEl.className = 'stat-value';
-            if (food < 10) foodEl.classList.add('danger');
-            else if (food < 30) foodEl.classList.add('warning');
-
+            foodEl.className = 'stat-value' + (food < 10 ? ' danger' : food < 30 ? ' warning' : '');
             const rateEl = document.getElementById('foodRate');
-            rateEl.className = 'stat-value';
-            if (parseFloat(netFoodRate) < 0) rateEl.classList.add('danger');
-            else if (parseFloat(netFoodRate) < 0.1) rateEl.classList.add('warning');
+            rateEl.className = 'stat-value' + (parseFloat(rate) < 0 ? ' danger' : parseFloat(rate) < 0.1 ? ' warning' : '');
 
-            // Only update idle count text, don't recreate buttons
-            if (selectedCell) {
-                document.getElementById('idleNote').textContent = `Idle workers: ${idleAnts}`;
-            }
+            if (selectedCell) document.getElementById('idleNote').textContent = `Idle workers: ${idle}`;
         }
 
         let lastTime = Date.now();
-
         function gameLoop() {
             if (!gameRunning) return;
-
             const now = Date.now();
             const deltaTime = now - lastTime;
             lastTime = now;
-
             update(deltaTime);
             render();
             updateStats();
-
             requestAnimationFrame(gameLoop);
         }
 
@@ -1127,25 +646,23 @@
 
             // Queen lays eggs
             if (now - lastQueenLay >= QUEEN_LAY_INTERVAL) {
-                const eggSpots = [];
+                const spots = [];
                 for (let dy = -2; dy <= 2; dy++) {
                     for (let dx = -2; dx <= 2; dx++) {
                         if (dx === 0 && dy === 0) continue;
-                        const nx = queen.x + dx;
-                        const ny = queen.y + dy;
-                        if (canMoveTo(nx, ny)) {
-                            const hasEgg = eggs.some(e => e.x === nx && e.y === ny);
-                            const hasAnt = ants.some(a => a.x === nx && a.y === ny);
-                            if (!hasEgg && !hasAnt) {
-                                eggSpots.push({x: nx, y: ny});
+                        const gx = queen.getGridX() + dx, gy = queen.getGridY() + dy;
+                        if (gx >= 0 && gx < GRID_WIDTH && gy >= 0 && gy < GRID_HEIGHT) {
+                            const cell = grid[gy][gx];
+                            if ((cell === CELL_TUNNEL || cell === CELL_FARM) &&
+                                !eggs.some(e => Math.abs(e.px - (gx*CELL_SIZE+CELL_SIZE/2)) < CELL_SIZE && Math.abs(e.py - (gy*CELL_SIZE+CELL_SIZE/2)) < CELL_SIZE)) {
+                                spots.push({x: gx, y: gy});
                             }
                         }
                     }
                 }
-
-                if (eggSpots.length > 0) {
-                    const spot = eggSpots[Math.floor(Math.random() * eggSpots.length)];
-                    eggs.push(new Egg(spot.x, spot.y));
+                if (spots.length > 0) {
+                    const spot = spots[Math.floor(Math.random() * spots.length)];
+                    eggs.push(new Egg(spot.x * CELL_SIZE + CELL_SIZE/2, spot.y * CELL_SIZE + CELL_SIZE/2));
                 }
                 lastQueenLay = now;
             }
@@ -1154,34 +671,27 @@
             for (let i = eggs.length - 1; i >= 0; i--) {
                 if (eggs[i].isReady()) {
                     const egg = eggs[i];
-                    ants.push(new Ant(egg.x, egg.y));
+                    const newAnt = new Ant(0, 0, false);
+                    newAnt.px = egg.px;
+                    newAnt.py = egg.py;
+                    ants.push(newAnt);
                     eggs.splice(i, 1);
                 }
             }
 
-            // Update ants
-            for (const ant of ants) {
-                ant.update(deltaTime);
-            }
-
-            // Update farms
-            for (const farm of farms) {
-                farm.update();
-            }
+            for (const ant of ants) ant.update(deltaTime);
+            for (const farm of farms) farm.update();
 
             // Consume food
             if (now - lastFoodConsume >= FOOD_CONSUME_INTERVAL) {
-                const totalAnts = ants.length + 1;
-                food -= totalAnts;
+                food -= ants.length + 1;
                 lastFoodConsume = now;
-
                 if (food <= 0) {
                     gameRunning = false;
                     document.getElementById('gameOver').style.display = 'block';
                 }
             }
 
-            // Clean up queues
             digQueue = digQueue.filter(d => grid[d.y][d.x] === CELL_DIRT);
             farmQueue = farmQueue.filter(f => grid[f.y][f.x] === CELL_TUNNEL || grid[f.y][f.x] === CELL_FARM);
         }
@@ -1193,98 +703,80 @@
             for (let y = 0; y < GRID_HEIGHT; y++) {
                 for (let x = 0; x < GRID_WIDTH; x++) {
                     const cell = grid[y][x];
-                    const sx = x * CELL_SIZE;
-                    const sy = y * CELL_SIZE;
+                    const sx = x * CELL_SIZE, sy = y * CELL_SIZE;
 
-                    switch (cell) {
-                        case CELL_SKY:
-                            // Gradient sky
-                            const skyGrad = ctx.createLinearGradient(sx, sy, sx, sy + CELL_SIZE);
-                            skyGrad.addColorStop(0, '#87CEEB');
-                            skyGrad.addColorStop(1, '#B0E0E6');
-                            ctx.fillStyle = skyGrad;
-                            ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
-                            break;
+                    if (cell === CELL_SKY) {
+                        ctx.fillStyle = '#87CEEB';
+                        ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
+                    } else if (cell === CELL_GRASS) {
+                        ctx.fillStyle = '#228B22';
+                        ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
+                    } else if (cell === CELL_DIRT) {
+                        const shade = ((x * 7 + y * 13) % 20) - 10;
+                        ctx.fillStyle = `rgb(${139 + shade}, ${69 + shade/2}, ${19 + shade/3})`;
+                        ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
+                    } else if (cell === CELL_TUNNEL) {
+                        // Beige tunnel background
+                        ctx.fillStyle = '#D4C4A8';
+                        ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
+                    } else if (cell === CELL_FARM) {
+                        drawFarm(x, y);
+                    }
+                }
+            }
 
-                        case CELL_GRASS:
-                            // Grass with texture
-                            ctx.fillStyle = '#228B22';
-                            ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
-                            // Grass blades
-                            ctx.strokeStyle = '#32CD32';
-                            ctx.lineWidth = 1;
-                            for (let i = 0; i < 4; i++) {
-                                const gx = sx + 2 + i * 4;
-                                ctx.beginPath();
-                                ctx.moveTo(gx, sy + CELL_SIZE);
-                                ctx.lineTo(gx + (Math.random() - 0.5) * 3, sy + 4);
-                                ctx.stroke();
-                            }
-                            break;
-
-                        case CELL_DIRT:
-                            ctx.fillStyle = dirtPattern || '#8B4513';
-                            ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
-                            break;
-
-                        case CELL_TUNNEL:
-                            ctx.fillStyle = tunnelPattern || '#3D2817';
-                            ctx.fillRect(sx, sy, CELL_SIZE, CELL_SIZE);
-                            break;
-
-                        case CELL_FARM:
-                            drawFarm(x, y);
-                            break;
+            // Draw white edge highlights for tunnels
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.lineWidth = 2;
+            for (let y = 0; y < GRID_HEIGHT; y++) {
+                for (let x = 0; x < GRID_WIDTH; x++) {
+                    if (grid[y][x] === CELL_TUNNEL || grid[y][x] === CELL_FARM) {
+                        const sx = x * CELL_SIZE, sy = y * CELL_SIZE;
+                        // Check each edge for dirt neighbor
+                        if (y > 0 && grid[y-1][x] === CELL_DIRT) {
+                            ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx + CELL_SIZE, sy); ctx.stroke();
+                        }
+                        if (y < GRID_HEIGHT-1 && grid[y+1][x] === CELL_DIRT) {
+                            ctx.beginPath(); ctx.moveTo(sx, sy + CELL_SIZE); ctx.lineTo(sx + CELL_SIZE, sy + CELL_SIZE); ctx.stroke();
+                        }
+                        if (x > 0 && grid[y][x-1] === CELL_DIRT) {
+                            ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(sx, sy + CELL_SIZE); ctx.stroke();
+                        }
+                        if (x < GRID_WIDTH-1 && grid[y][x+1] === CELL_DIRT) {
+                            ctx.beginPath(); ctx.moveTo(sx + CELL_SIZE, sy); ctx.lineTo(sx + CELL_SIZE, sy + CELL_SIZE); ctx.stroke();
+                        }
                     }
                 }
             }
 
             // Draw queued tasks
             ctx.fillStyle = 'rgba(255, 165, 0, 0.4)';
-            for (const task of digQueue) {
-                ctx.fillRect(task.x * CELL_SIZE, task.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-            }
+            for (const t of digQueue) ctx.fillRect(t.x * CELL_SIZE, t.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
             ctx.fillStyle = 'rgba(50, 205, 50, 0.4)';
-            for (const task of farmQueue) {
-                ctx.fillRect(task.x * CELL_SIZE, task.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-            }
+            for (const t of farmQueue) ctx.fillRect(t.x * CELL_SIZE, t.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 
-            // Draw highlight
+            // Highlight
             if (highlightedCell) {
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
                 ctx.lineWidth = 2;
-                ctx.strokeRect(
-                    highlightedCell.x * CELL_SIZE + 1,
-                    highlightedCell.y * CELL_SIZE + 1,
-                    CELL_SIZE - 2,
-                    CELL_SIZE - 2
-                );
+                ctx.strokeRect(highlightedCell.x * CELL_SIZE + 1, highlightedCell.y * CELL_SIZE + 1, CELL_SIZE - 2, CELL_SIZE - 2);
             }
 
-            // Draw selection
+            // Selection
             if (selectedCell) {
                 ctx.strokeStyle = '#00FF00';
                 ctx.lineWidth = 3;
-                ctx.strokeRect(
-                    selectedCell.x * CELL_SIZE,
-                    selectedCell.y * CELL_SIZE,
-                    CELL_SIZE,
-                    CELL_SIZE
-                );
+                ctx.strokeRect(selectedCell.x * CELL_SIZE, selectedCell.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
             }
 
             // Draw eggs
-            for (const egg of eggs) {
-                egg.draw();
-            }
+            for (const egg of eggs) egg.draw();
 
             // Draw queen
             queen.draw();
 
-            // Draw worker ants
-            for (const ant of ants) {
-                ant.draw();
-            }
+            // Draw workers
+            for (const ant of ants) ant.draw();
         }
 
         window.onload = init;
