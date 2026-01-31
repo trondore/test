@@ -715,7 +715,13 @@
                     return;
                 }
 
-                if (this.moveTowards(this.targetX, this.targetY, deltaTime)) {
+                // Check if adjacent to target
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+                const isAdjacent = Math.abs(dx) <= 1 && Math.abs(dy) <= 1;
+
+                if (isAdjacent) {
+                    // Work on digging every frame
                     this.workProgress += deltaTime;
                     if (this.workProgress >= DIG_TIME) {
                         grid[this.targetY][this.targetX] = CELL_TUNNEL;
@@ -724,6 +730,9 @@
                         this.targetY = null;
                         this.task = TASK_IDLE;
                     }
+                } else {
+                    // Move towards target
+                    this.moveTowards(this.targetX, this.targetY, deltaTime);
                 }
             }
 
@@ -742,13 +751,22 @@
                     return;
                 }
 
+                // Check if adjacent to target
+                const dx = this.targetX - this.x;
+                const dy = this.targetY - this.y;
+                const isAdjacent = Math.abs(dx) <= 1 && Math.abs(dy) <= 1;
+
                 if (cell === CELL_FARM) {
                     // Tend existing farm - just stay near it
-                    this.moveTowards(this.targetX, this.targetY, deltaTime);
+                    if (!isAdjacent) {
+                        this.moveTowards(this.targetX, this.targetY, deltaTime);
+                    }
                     return;
                 }
 
-                if (this.moveTowards(this.targetX, this.targetY, deltaTime)) {
+                // Building a new farm
+                if (isAdjacent) {
+                    // Work on building every frame
                     this.workProgress += deltaTime;
                     if (this.workProgress >= FARM_BUILD_TIME) {
                         grid[this.targetY][this.targetX] = CELL_FARM;
@@ -756,6 +774,9 @@
                         this.workProgress = 0;
                         // Stay as farmer to tend the farm
                     }
+                } else {
+                    // Move towards target
+                    this.moveTowards(this.targetX, this.targetY, deltaTime);
                 }
             }
 
