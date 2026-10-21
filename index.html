@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Mono CRM — a minimal, local-first sales workspace for contacts, accounts, pipeline and tasks." />
+  <title>Mono CRM — Local-first sales workspace</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='black'/%3E%3Cpath d='M14 46V18l18 18 18-18v28' fill='none' stroke='white' stroke-width='5'/%3E%3C/svg%3E" />
+  <script defer src="./src/core.js"></script>
+  <script defer src="./src/app.js"></script>
+</head>
+<body>
+  <div class="workspace">
+    <aside id="sidebar" class="sidebar" aria-label="Main navigation">
+      <div class="brand"><div class="brand-icon" aria-hidden="true"><span></span><span></span><span></span></div><div><strong>MONO</strong><span>CRM</span></div><span class="brand-version">V1</span></div>
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-item active" data-nav="dashboard" aria-current="page"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Overview</button>
+        <button class="nav-item" data-nav="contacts"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>Contacts</button>
+        <button class="nav-item" data-nav="companies"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M8 5V2h8v3M8 10h2m4 0h2M8 14h2m4 0h2M9 21v-4h6v4"/></svg></span>Companies</button>
+        <button class="nav-item" data-nav="deals"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v3h4v-3"/></svg></span>Pipeline</button>
+        <button class="nav-item" data-nav="tasks"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 10 2 2 4-4M8 17h8"/></svg></span>Tasks</button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-label">PREFERENCES</div>
+      <nav class="nav"><button class="nav-item" data-nav="settings"><span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M4.9 4.9 7 7m10 10 2.1 2.1M2 12h3m14 0h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span>Settings</button></nav>
+      <div class="sidebar-footer"><span class="online-dot"></span><div><strong>LOCAL WORKSPACE</strong><small>Private · On this device</small></div></div>
+    </aside>
+    <div id="overlay" class="mobile-overlay"></div>
+    <div class="main-column">
+      <header class="topbar">
+        <button id="mobileMenu" class="mobile-menu" aria-label="Toggle menu"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <div class="breadcrumb"><span class="breadcrumb-muted">Workspace</span><span class="breadcrumb-divider">/</span><strong id="pageTitle">Overview</strong></div>
+        <div class="topbar-spacer"></div>
+        <label class="search-wrap"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="search" type="search" autocomplete="off" placeholder="Search records..." aria-label="Search current page" /><span class="keycap">/</span></label>
+        <button id="createBtn" class="btn btn-primary" data-action="new" data-kind="deals"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New Deal</button>
+      </header>
+      <main id="app" class="content" tabindex="-1"></main>
+    </div>
+  </div>
+  <div id="dialogRoot"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="csvFile" accept=".csv,text/csv" hidden aria-label="Import contact CSV" />
+  <input type="file" id="jsonFile" accept=".json,application/json" hidden aria-label="Restore JSON backup" />
+</body>
+</html>
